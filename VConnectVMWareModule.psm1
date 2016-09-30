@@ -188,6 +188,7 @@ function VConnect-MountIso($Datacenter, $Cluster, $FolderName, $RootFolderPath, 
 }
 
 function VConnect-Init() {
+param($HostServerName, $HostServerPort, $UserName, $Password)
     $vmwareModules = Get-Module -ListAvailable 'VMware.VimAutomation.*'
     Write-Debug "VMware Modules Count: $($vmwareModules.Count)"
     # $isVMwareSnapinLoaded = Get-PSSnapin | ?{ $_.Name -eq 'VMware.VimAutomation.Core' }
