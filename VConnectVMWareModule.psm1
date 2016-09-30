@@ -8,15 +8,11 @@ param($snapInName)
     }
 }
 
-<#
-# Connects to a VCenter server
-# Uses script variables, instead of params
-#>
 function VConnect-Connect-VIServer {
+param($HostServerName, $HostServerPort, $UserName, $Password)
     $private:x = Connect-VIServer -Server $HostServerName -Port $HostServerPort -User $UserName -Password $Password
     return $private:x
 }
-
 
 function VConnect-CreateOrGetFolderForVM {
 param($folderName, $dc)
@@ -215,7 +211,7 @@ function VConnect-Init() {
 
     # This is so that all PowerCLI commands do not ask for "hey your DefaultVIServerMode setting is not set and I am not able to figure out whether I should execute this command on all connected default servers or just the last one connected. Please choose Y or N"
     Set-PowerCLIConfiguration -DefaultVIServerMode single -scope session -Confirm:$false | Out-Null
-    $connection = VConnect-Connect-VIServer -ErrorAction Stop
+    $connection = VConnect-Connect-VIServer $HostServerName $HostServerPort $UserName $Password -ErrorAction Stop
     return $connection
 }
 
